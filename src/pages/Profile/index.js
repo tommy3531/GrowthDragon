@@ -117,36 +117,36 @@ function Profile ({userData}){
                             <div class='tabs is-fullwidth is-medium'>
                                 <ul>
                                 <li class='link'>
-                                    <a>
+                                    {/* <a>
                                     <span class='icon'>
                                         <i class='fa fa-list'></i>
                                     </span>
                                     <span>My Lists</span>
-                                    </a>
+                                    </a> */}
                                 </li>
                                 <li class='link is-active'>
-                                    <a>
+                                    {/* <a>
                                     <span class='icon'>
                                         <i class='fa fa-thumbs-up'></i>
                                     </span>
                                     <span>My Likes</span>
-                                    </a>
+                                    </a> */}
                                 </li>
                                 <li class='link'>
-                                    <a>
+                                    {/* <a>
                                     <span class='icon'>
                                         <i class='fa fa-search'></i>
                                     </span>
                                     <span>My Searches</span>
-                                    </a>
+                                    </a> */}
                                 </li>
                                 <li class='link'>
-                                    <a>
+                                    {/* <a>
                                     <span class='icon'>
                                         <i class='fa fa-balance-scale'></i>
                                     </span>
                                     <span>Compare</span>
-                                    </a>
+                                    </a> */}
                                 </li>
                                 </ul>
                             </div>
