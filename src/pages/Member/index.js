@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { withRouter } from 'use-react-router';
+// import { withRouter } from 'react-router';
 
-// import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { toast } from 'bulma-toast';
 
 
@@ -48,3 +48,4 @@ class Member extends Component {
 
 
 export default withRouter(Member);
+// export default Member;
