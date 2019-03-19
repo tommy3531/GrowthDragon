@@ -14,6 +14,7 @@ import Register from "../pages/Register";
 import SignIn from "../pages/SignIn";
 import Profile from "../pages/Profile";
 import TopNav from "../common/TopNav";
+import About from "../pages/About";
 
 class Main extends Component {
   constructor(props) {
@@ -43,13 +44,13 @@ class Main extends Component {
     return (
         <Router>
             <section class="hero is-info is-fullheight">
-                <TopNav mainIsLoggedIn={this.state.user} />
+                {/* <TopNav mainIsLoggedIn={this.state.user} /> */}
                     <Switch>
-                        <Route exact path="/" component={Landing} />
-                        <Route path="/signin" component={SignIn} />
-                        <Route path="/register" component={Register} />
-                        <Route path="/profile" render={() => <Profile userData={this.state.userData}></Profile>} />
-                        <Route path="/member" render={() => <Member mainIsLoggedIn={this.state.user}></Member>} />
+                        <Route exact path="/" component={About} />
+                        {/* <Route path="/signin" component={SignIn} /> */}
+                        {/* <Route path="/register" component={Register} /> */}
+                        {/* <Route path="/profile" render={() => <Profile userData={this.state.userData}></Profile>} /> */}
+                        {/* <Route path="/member" render={() => <Member mainIsLoggedIn={this.state.user}></Member>} /> */}
                     </Switch>
             </section>
 
