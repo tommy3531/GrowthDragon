@@ -3,7 +3,7 @@ import {
     BrowserRouter as Router,
     Route,
     Switch
-} from "react-router-dom";
+} from "use-react-router";
 import fire from "../helper/Firebase";
 
 // Pages
