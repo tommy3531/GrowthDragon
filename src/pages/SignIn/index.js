@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import TopNav from '../../common/TopNav';
 import BottomNav from '../../common/BottomNav';
 import fire from '../../helper/Firebase';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 
 class SignIn extends Component {
@@ -49,7 +48,7 @@ class SignIn extends Component {
                             <p class="subtitle">Please login to proceed.</p>
                             <div class="box">
                                 <figure class="avatar">
-                                    <img src="https://placehold.it/128x128" />
+                                    <img src="https://placehold.it/128x128" alt="placeholder"/>
                                 </figure>
                                 <form onSubmit={this.onSubmit}>
                                     <div class="field">

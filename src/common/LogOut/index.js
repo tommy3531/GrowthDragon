@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import fire from '../../helper/Firebase'
 import { toast } from 'bulma-toast';
 
@@ -18,9 +18,9 @@ const LogOutUser = () => {
 };
 
 const LogOut = () => {
-    return (<a class="button is-info" onClick={LogOutUser}>
+    return (<button  class="button is-info" onClick={LogOutUser}>
             <Link to="/" >Logout</Link>
-          </a>
+          </button>
     )
 
 

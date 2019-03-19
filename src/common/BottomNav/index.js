@@ -1,8 +1,6 @@
 import React from "react";
-import { Link } from 'react-router-dom';
 
 const BottomNav = props => {
-  const title = props.title;
   return (
     <div class="hero-foot">
         <nav class="tabs is-boxed is-fullwidth">

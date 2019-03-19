@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 
@@ -76,8 +76,8 @@ function Profile ({userData}){
                                 </p>
                             </section>
                             <footer class='modal-card-foot'>
-                                <a class='button is-primary modal-save'>Save changes</a>
-                                <a class='button modal-cancel'>Cancel</a>
+                                <div class='button is-primary modal-save'>Save changes</div>
+                                <div class='button modal-cancel'>Cancel</div>
                             </footer>
                         </div>
                         </div>
@@ -186,9 +186,9 @@ function Profile ({userData}){
                                         </div>
                                     </div>
                                     <footer class='card-footer'>
-                                        <a class='card-footer-item'>Compare</a>
-                                        <a class='card-footer-item'>Share</a>
-                                        <a class='card-footer-item'>Delete</a>
+                                        <div class='card-footer-item'>Compare</div>
+                                        <div class='card-footer-item'>Share</div>
+                                        <div class='card-footer-item'>Delete</div>
                                     </footer>
                                 </div>
                             <br />
@@ -207,9 +207,9 @@ function Profile ({userData}){
                                 </div>
                             </div>
                             <footer class='card-footer'>
-                                <a class='card-footer-item'>Compare</a>
-                                <a class='card-footer-item'>Share</a>
-                                <a class='card-footer-item'>Delete</a>
+                                <div class='card-footer-item'>Compare</div>
+                                <div class='card-footer-item'>Share</div>
+                                <div class='card-footer-item'>Delete</div>
                             </footer>
                             </div>
                             <br />
@@ -228,9 +228,9 @@ function Profile ({userData}){
                                 </div>
                             </div>
                             <footer class='card-footer'>
-                                <a class='card-footer-item'>Compare</a>
-                                <a class='card-footer-item'>Share</a>
-                                <a class='card-footer-item'>Delete</a>
+                                <div class='card-footer-item'>Compare</div>
+                                <div class='card-footer-item'>Share</div>
+                                <div class='card-footer-item'>Delete</div>
                             </footer>
                             </div>
                             <br />
@@ -249,9 +249,9 @@ function Profile ({userData}){
                                 </div>
                             </div>
                             <footer class='card-footer'>
-                                <a class='card-footer-item'>Compare</a>
-                                <a class='card-footer-item'>Share</a>
-                                <a class='card-footer-item'>Delete</a>
+                                <div class='card-footer-item'>Compare</div>
+                                <div class='card-footer-item'>Share</div>
+                                <div class='card-footer-item'>Delete</div>
                             </footer>
                             </div>
                             <br />
@@ -272,9 +272,9 @@ function Profile ({userData}){
                                 </div>
                             </div>
                             <footer class='card-footer'>
-                                <a class='card-footer-item'>Compare</a>
-                                <a class='card-footer-item'>Share</a>
-                                <a class='card-footer-item'>Delete</a>
+                                <div class='card-footer-item'>Compare</div>
+                                <div class='card-footer-item'>Share</div>
+                                <div class='card-footer-item'>Delete</div>
                             </footer>
                             </div>
                             <br />
@@ -293,9 +293,9 @@ function Profile ({userData}){
                                 </div>
                             </div>
                             <footer class='card-footer'>
-                                <a class='card-footer-item'>Compare</a>
-                                <a class='card-footer-item'>Share</a>
-                                <a class='card-footer-item'>Delete</a>
+                                <div class='card-footer-item'>Compare</div>
+                                <div class='card-footer-item'>Share</div>
+                                <div class='card-footer-item'>Delete</div>
                             </footer>
                             </div>
                             <br />
@@ -314,9 +314,9 @@ function Profile ({userData}){
                                 </div>
                             </div>
                             <footer class='card-footer'>
-                                <a class='card-footer-item'>Compare</a>
-                                <a class='card-footer-item'>Share</a>
-                                <a class='card-footer-item'>Delete</a>
+                                <div class='card-footer-item'>Compare</div>
+                                <div class='card-footer-item'>Share</div>
+                                <div class='card-footer-item'>Delete</div>
                             </footer>
                             </div>
                             <br />
@@ -335,9 +335,9 @@ function Profile ({userData}){
                                 </div>
                             </div>
                             <footer class='card-footer'>
-                                <a class='card-footer-item'>Compare</a>
-                                <a class='card-footer-item'>Share</a>
-                                <a class='card-footer-item'>Delete</a>
+                                <div class='card-footer-item'>Compare</div>
+                                <div class='card-footer-item'>Share</div>
+                                <div class='card-footer-item'>Delete</div>
                             </footer>
                             </div>
                             <br />

@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDragon } from '@fortawesome/free-solid-svg-icons';
 import LogOut from "../../common/LogOut";
@@ -11,9 +11,9 @@ const TopNav = ({mainIsLoggedIn}) => {
             <nav class="navbar">
               <div class="container">
                 <div class="navbar-brand">
-                  <a class="navbar-item">
+                  <div class="navbar-item">
                     <NavLink to="/"><FontAwesomeIcon icon={faDragon} />Growth Dragon</NavLink>
-                  </a>
+                  </div>
                   <span class="navbar-burger burger" data-target="navbarMenuHeroB">
                     <span>home</span>
                     <span></span>

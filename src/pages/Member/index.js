@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import fire from '../../helper/Firebase';
-import TopNav from '../../common/TopNav';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { toast } from 'bulma-toast';
 
 
@@ -23,7 +21,6 @@ class Member extends Component {
     }
 
     render() {
-        this.state.isLoggedIn = this.props.mainIsLoggedIn;
         console.log("Member render: " + this.state.isLoggedIn);
         return (
             <div>
@@ -41,12 +38,6 @@ class Member extends Component {
             )}
             </div>
 
-            // <div>
-                
-            //     <h1>Member:{this.state.isLoggedIn}</h1>
-
-
-            // </div>
         );
     }      
 }
