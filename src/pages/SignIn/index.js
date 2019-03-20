@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import BottomNav from '../../common/BottomNav';
 import fire from '../../helper/Firebase';
 import { withRouter } from 'react-router-dom';
-
+import { toast } from 'bulma-toast';
 
 class SignIn extends Component {
     constructor(props) {
@@ -24,6 +24,13 @@ class SignIn extends Component {
         fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
         .then(() => {
             this.setState({success: true});
+            toast({
+                message: "You have logged In",
+                type: "is-success",
+                dismissible: true,
+                animate: {in: "fadeIn", out: "fadeOut"},
+                preventDuplicates: true
+            })
             this.props.history.push({pathname: "/member", state: {success: this.state.success}});
         }).catch((error) => {
             console.log(error);

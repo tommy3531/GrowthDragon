@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-// import { withRouter } from 'react-router';
-
 import { withRouter } from 'react-router-dom';
 import { toast } from 'bulma-toast';
 
@@ -9,7 +7,8 @@ class Member extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoggedIn: false
+            isLoggedIn: false,
+            count: false
         };
     }
     componentWillReceiveProps(){
@@ -23,17 +22,13 @@ class Member extends Component {
     }
 
     render() {
-        this.state.isLoggedIn = this.props.mainIsLoggedIn;
-        console.log("Member render: " + this.state.isLoggedIn);
         return (
             <div>
-            { this.state.isLoggedIn ? (
-            toast({
-                message: "You have logged In",
-                type: "is-success",
-                dismissible: true,
-                animate: {in: "fadeIn", out: "fadeOut"}
-            })
+            { this.props.mainIsLoggedIn ? (
+            <div>
+                <h1>Logged In</h1>
+            </div>
+            
             ) : (
                 <div>
                     <h1>Not logged In</h1>
