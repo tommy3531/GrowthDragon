@@ -4,8 +4,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDragon } from '@fortawesome/free-solid-svg-icons';
 import LogOut from "../../common/LogOut";
 
+const toggleBurger = () => {
+  let burgerIcon = document.getElementById('.burger');
+  let dropMenu = document.getElementById('.navbarMenuHeroB');
+  burgerIcon.classList.toggle('is-active');
+  dropMenu.classList.toggle('is-active');
+};
+
 const TopNav = ({mainIsLoggedIn}) => {
   console.log("TopNav: " + mainIsLoggedIn)
+  
   return (
           <div class="hero-head">
             <nav class="navbar">
@@ -14,11 +22,11 @@ const TopNav = ({mainIsLoggedIn}) => {
                   <div class="navbar-item">
                     <NavLink to="/"><FontAwesomeIcon icon={faDragon} />Growth Dragon</NavLink>
                   </div>
-                  <span class="navbar-burger burger" data-target="navbarMenuHeroB">
-                    <span>home</span>
+                  <div class="navbar-burger burger" id="navbarMenuHeroB" onclick="toggleBurger()">
                     <span></span>
                     <span></span>
-                  </span>
+                    <span></span>
+                  </div>
                 </div>
                 
                 { !mainIsLoggedIn ? (

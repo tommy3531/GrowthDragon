@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 
 class Landing extends Component {
-
-    componentDidMount() {
+    constructor(props){
+        super(props);
     }
+    
     render() {
         return (
             <section class="hero is-info is-fullheight">

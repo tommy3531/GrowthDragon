@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import TopNav from '../../common/TopNav';
 import fire from "../../helper/Firebase";
 
 

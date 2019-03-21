@@ -14,7 +14,6 @@ import Register from "../pages/Register";
 import SignIn from "../pages/SignIn";
 import Profile from "../pages/Profile";
 import TopNav from "../common/TopNav";
-import About from "../pages/About";
 
 class Main extends Component {
   constructor(props) {
