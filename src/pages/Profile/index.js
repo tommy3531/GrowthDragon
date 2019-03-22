@@ -1,9 +1,29 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { toast } from 'bulma-toast';
 
 
-function Profile ({userData}){
-    
+
+class Profile extends React.Component {
+    constructor(props){
+        super(props);
+    }    
+    componentWillMount() {
+        if(this.props.mainIsLoggedIn){
+            console.log("Members is true");
+        } else {
+            console.log("Member is not logged in redirect to");
+            console.log("Props: " + this.props.history)
+            toast({
+                message: "You must be logged In",
+                type: "is-danger",
+                dismissible: true,
+                animate: {in: "fadeIn", out: "fadeOut"}
+            })
+            this.props.history.replace("/");
+        }
+    }
+    render() {
     return (
         <section class="hero is-info is-fullheight">
             <div class='columns'>
@@ -90,7 +110,7 @@ function Profile ({userData}){
                                 </div>
                                 <div class='column is-4-tablet is-10-mobile name'>
                                     <p>
-                                        <span class='title is-bold'>User Uid: {userData.email}</span>
+                                        <span class='title is-bold'>User Uid: {this.props.userData.email}</span>
                                         <br />
                                         <Link to="/editprofile" button class="button is-primary is-outlined" id="edit-perferences">Edit Profile</Link>
                                         <br />
@@ -347,6 +367,7 @@ function Profile ({userData}){
             </div>  
         </section>      
         );
+                                }
     };      
 
 

@@ -31,7 +31,7 @@ class SignIn extends Component {
                 animate: {in: "fadeIn", out: "fadeOut"},
                 preventDuplicates: true
             })
-            this.props.history.push({pathname: "/member", state: {success: this.state.success}});
+            this.props.history.replace("/");
         }).catch((error) => {
             console.log(error);
         });
