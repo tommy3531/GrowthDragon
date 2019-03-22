@@ -6,13 +6,6 @@ import { toast } from 'bulma-toast';
 class Member extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isLoggedIn: false,
-            count: false
-        };
-    }
-    componentWillReceiveProps(){
-        
 
     }
 
@@ -21,9 +14,14 @@ class Member extends Component {
             console.log("Members is true");
         } else {
             console.log("Member is not logged in redirect to");
+            toast({
+                message: "You must be logged In",
+                type: "is-danger",
+                dismissible: true,
+                animate: {in: "fadeIn", out: "fadeOut"}
+            })
             this.props.history.replace('/');
         }
-
     }
 
     render() {
@@ -48,4 +46,3 @@ class Member extends Component {
 
 
 export default withRouter(Member);
-// export default Member;

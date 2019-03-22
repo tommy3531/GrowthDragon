@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import TopNav from '../../common/TopNav';
 import firebase from '../../helper/Firebase';
+import { toast } from 'bulma-toast';
+import { withRouter } from 'react-router-dom';
 
 class EditProfile extends Component {
     constructor(props) {
@@ -12,6 +14,22 @@ class EditProfile extends Component {
             facebook: ''
         };
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    componentWillMount() {
+        if(this.props.mainIsLoggedIn){
+            console.log("Members is true");
+        } else {
+            console.log("Member is not logged in redirect to");
+            console.log("Props: " + this.props.history)
+            toast({
+                message: "You must be logged In",
+                type: "is-danger",
+                dismissible: true,
+                animate: {in: "fadeIn", out: "fadeOut"}
+            })
+            this.props.history.replace("/");
+        }
     }
 
     // Add Social Sites to Firebase
@@ -101,4 +119,4 @@ class EditProfile extends Component {
     }      
 }
 
-export default EditProfile;
+export default withRouter(EditProfile);

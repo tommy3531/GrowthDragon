@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 
 function Profile ({userData}){
@@ -92,7 +92,7 @@ function Profile ({userData}){
                                     <p>
                                         <span class='title is-bold'>User Uid: {userData.email}</span>
                                         <br />
-                                        <Link to="/EditProfile" button class="button is-primary is-outlined" id="edit-perferences">Edit Profile</Link>
+                                        <Link to="/editprofile" button class="button is-primary is-outlined" id="edit-perferences">Edit Profile</Link>
                                         <br />
                                     </p>
                                     <p class='tagline'>
@@ -350,4 +350,4 @@ function Profile ({userData}){
     };      
 
 
-export default Profile;
+export default withRouter(Profile);

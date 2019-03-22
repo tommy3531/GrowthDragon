@@ -14,6 +14,7 @@ import Register from "../pages/Register";
 import SignIn from "../pages/SignIn";
 import Profile from "../pages/Profile";
 import TopNav from "../common/TopNav";
+import EditProfile from "../pages/EditProfile";
 
 class Main extends Component {
   constructor(props) {
@@ -50,6 +51,8 @@ class Main extends Component {
                         <Route path="/register" component={Register} />
                         <Route path="/profile" render={() => <Profile userData={this.state.userData}></Profile>} />
                         <Route path="/member" render={() => <Member mainIsLoggedIn={this.state.user}></Member>} />
+                        <Route path="/editprofile" render={() => <EditProfile userData={this.state.userData}></EditProfile>} />
+
                     </Switch>
             </section>
 
