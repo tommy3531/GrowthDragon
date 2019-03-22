@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { toast } from 'bulma-toast';
 
 
@@ -16,8 +16,13 @@ class Member extends Component {
 
     }
 
-    componentDidMount() {
-        // console.log("Member component: " + this.props.mainIsLoggedIn);
+    componentWillMount() {
+        if(this.props.mainIsLoggedIn){
+            console.log("Members is true");
+        } else {
+            console.log("Member is not logged in redirect to");
+            this.props.history.replace('/');
+        }
 
     }
 
