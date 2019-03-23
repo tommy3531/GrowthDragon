@@ -51,7 +51,7 @@ class Main extends Component {
                         <Route path="/register" component={Register} />
                         <Route path="/profile" render={() => <Profile mainIsLoggedIn={this.state.user} userData={this.state.userData}></Profile>} />
                         <Route path="/member" render={() => <Member mainIsLoggedIn={this.state.user}></Member>} />
-                        <Route path="/editprofile" render={() => <EditProfile mainIsLoggedIn={this.state.user}></EditProfile>} />
+                        <Route path="/editprofile" render={() => <EditProfile mainIsLoggedIn={this.state.user} userData={this.state.userData}></EditProfile>} />
 
                     </Switch>
             </section>

@@ -9,9 +9,14 @@ class EditProfile extends Component {
         super(props);
 
         this.state = { 
+            email: '',
+            username: '',
             imdb: '', 
             twitter: '',
-            facebook: ''
+            facebook: '',
+            birthday: '',
+            city: '',
+            state: ''
         };
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -37,19 +42,29 @@ class EditProfile extends Component {
 
         event.preventDefault();
         const uid = firebase.auth().currentUser.uid;
-        const email = firebase.auth().currentUser.email;
         const user = firebase.database().ref(`users/${uid}`);
 
         const userprofile = {
+            email: this.props.userData.email,
+            username: this.state.username,
             imdb: this.state.imdb,
             twitter: this.state.twitter,
-            facebook: this.state.facebook
+            facebook: this.state.facebook,
+            birthday: this.state.birthday,
+            city: this.state.city,
+            state: this.state.state
+
         }
         user.update(userprofile);
         this.setState({
+            username: '',
             imdb: '',
             twitter: '',
-            facebook: ''
+            facebook: '',
+            birthday: '',
+            city: '',
+            state: ''
+
         });
     };
 
@@ -67,10 +82,26 @@ class EditProfile extends Component {
                             <p class="subtitle">Edit Profile</p>
                             <div class="box">	
                                 <form>
-                                    <p class="help is-danger"></p>                                
+                                    <p class="help is-danger"></p> 
                                     <div class="field">	
                                         <div class="control">	
-                                            <input name="username" type="text" class="input" placeholder="Username" />
+                                            <input 
+                                                name="email"  
+                                                type="text" 
+                                                value={this.props.userData.email} 
+                                            />
+                                        </div>
+                                    </div>                               
+                                    <div class="field">	
+                                        <div class="control">	
+                                            <input 
+                                                name="username" 
+                                                type="text" 
+                                                onChange={this.onChange}
+                                                value={this.state.username} 
+                                                class="input" 
+                                                placeholder="Username" 
+                                            />
                                         </div>
                                     </div>
                                     <div class="field">	
@@ -106,6 +137,40 @@ class EditProfile extends Component {
                                                 class="input" 
                                                 placeholder="Twitter" 
                                             />
+                                        </div>
+                                    </div>
+                                    <div class="field">	
+                                        <div class="control">	
+                                            <input 
+                                                name="birthday" 
+                                                type="text"
+                                                onChange={this.onChange}
+                                                value={this.state.birthday} 
+                                                class="input" 
+                                                placeholder="Birthday" 
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="field">	
+                                        <div class="control">	
+                                            <input 
+                                                name="city"  
+                                                type="text" 
+                                                onChange={this.onChange}
+                                                value={this.state.city} 
+                                                class="input" 
+                                                placeholder="City" />
+                                        </div>
+                                    </div>
+                                    <div class="field">	
+                                        <div class="control">	
+                                            <input 
+                                                name="state"  
+                                                type="text" 
+                                                onChange={this.onChange}
+                                                value={this.state.state} 
+                                                class="input" 
+                                                placeholder="State" />
                                         </div>
                                     </div>
                                     <input name="saveProfile" type="submit" onClick={this.onSubmit} class="button is-medium is-info is-fullwidth" value="Save Profile" /> 
