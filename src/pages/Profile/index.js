@@ -33,7 +33,7 @@ class Profile extends React.Component {
                     <div class="tile is-ancestor">
                         <div class="tile is-4 is-parent">
                             <article class="tile is-child box">
-                                <p class="usertitle">Hello, Profile Pic</p>
+                                <p class="usertitle">Hello, {this.props.userData.email}</p>
                                 <figure class="image is-4by3">
                                     <img src="https://bulma.io/images/placeholders/640x480.png"></img>
                                 </figure>
@@ -84,7 +84,7 @@ class Profile extends React.Component {
                         </div>
                         <div class="tile is-4 is-parent">
                             <div class="tile is-child box">
-                                <p class="boxtitle">Basic Information</p>
+                                <p class="boxtitle">Mailing Address</p>
                                 <form>
                                     <div class="field">
                                         <label class="label">Address</label>
