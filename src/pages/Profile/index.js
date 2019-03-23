@@ -39,14 +39,17 @@ class Profile extends React.Component {
                                 </figure>
                             </article>
                         </div>
-                        <div class="tile is-8 is-parent">
+                        <div class="tile is-4 is-parent">
                             <div class="tile is-child box">
                                 <p class="boxtitle">Basic Information</p>
                                 <form>
                                     <div class="field">
                                         <label class="label">Name</label>
-                                        <div class="control">
+                                        <div class="control has-icons-left">
                                             <input class="input" type="text" placeholder="FullName" />
+                                            <span class="icon is-small is-left">
+                                                <i class="fas fa-user"></i>
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="field">
@@ -59,21 +62,64 @@ class Profile extends React.Component {
                                         </div>
                                     </div>
                                     <div class="field">
+                                        <label class="label">Phone</label>
+                                        <div class="control has-icons-left">
+                                            <input class="input" type="text" placeholder="Phone" />
+                                            <span class="icon is-small is-left">
+                                                <i class="fas fa-phone"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label">Birthday</label>
+                                        <div class="control has-icons-left">
+                                            <input class="input" type="text" placeholder="Birthday" />
+                                            <span class="icon is-small is-left">
+                                                <i class="fas fa-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tile is-4 is-parent">
+                            <div class="tile is-child box">
+                                <p class="boxtitle">Basic Information</p>
+                                <form>
+                                    <div class="field">
                                         <label class="label">Address</label>
-                                        <div class="control">
+                                        <div class="control has-icons-left">
                                             <input class="input" type="text" placeholder="Address" />
+                                            <span class="icon is-small is-left">
+                                                <i class="fas fa-home"></i>
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="field">
                                         <label class="label">City</label>
-                                        <div class="control">
+                                        <div class="control has-icons-left">
                                             <input class="input" type="text" placeholder="City" />
+                                            <span class="icon is-small is-left">
+                                                <i class="fas fa-home"></i>
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="field">
                                         <label class="label">State</label>
-                                        <div class="control">
+                                        <div class="control has-icons-left">
                                             <input class="input" type="text" placeholder="State" />
+                                            <span class="icon is-small is-left">
+                                                <i class="fas fa-home"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label">Zipcode</label>
+                                        <div class="control has-icons-left">
+                                            <input class="input" type="text" placeholder="Zipcode" />
+                                            <span class="icon is-small is-left">
+                                                <i class="fas fa-home"></i>
+                                            </span>
                                         </div>
                                     </div>
                                 </form>
