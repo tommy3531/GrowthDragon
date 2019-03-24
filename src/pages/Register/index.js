@@ -4,6 +4,7 @@ import fire from "../../helper/Firebase";
 
 
 const INITIAL_STATE = {
+    username: '',
     email: '',
     passwordOne: '',
     passwordTwo: '',
@@ -19,19 +20,28 @@ class Register extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    // TODO: Clean this up
     onSubmit = event => {
-        const { email, passwordOne } = this.state;
+        const { email, passwordOne, username } = this.state;
+
+        event.preventDefault();
+
+        const userprofile = {
+            username: username
+        }
 
         fire.auth().createUserWithEmailAndPassword(email, passwordOne)
-            .then((user) => {
+            .then(() => {
+                const uid = fire.auth().currentUser.uid;
+                const userDB = fire.database().ref(`users/${uid}`);
                 this.setState({ success: true });
-                console.log("Register: " + this.state.success);
+                console.log("Register username: " + username);
+                userDB.update(userprofile);
                 this.props.history.push({pathname: "/profile", state: this.state.success});
             })
             .catch(error => {
                 this.setState({ error });
             });
-        event.preventDefault();
     };
 
     onChange = event => {
@@ -42,6 +52,7 @@ class Register extends Component {
     render() {
 
         const {
+            username,
             email,
             passwordOne,
             passwordTwo,
@@ -53,44 +64,66 @@ class Register extends Component {
             <section class="hero is-info is-fullheight">
                 <div class="hero-body">
                     <div class="container has-text-centered">
-                        <div class="column is-4 is-offset-4">	
+                        <div class="column is-4 is-offset-4">
                             <h3 class="title">Register</h3>
-                            <p class="subtitle">Please register below</p>
-                            <div class="box">	
-                                <h1>{this.error}</h1>
+                            <p class="subtitle">Please Register.</p>
+                            <div class="box">
                                 <form onSubmit={this.onSubmit}>
-                                    <input
-                                        name="email"
-                                        value={email}
-                                        onChange={this.onChange}
-                                        type="text"
-                                        placeholder="Email"
-                                    />
-                                    <input
-                                        name="passwordOne"
-                                        value={passwordOne}
-                                        onChange={this.onChange}
-                                        type="password"
-                                        placeholder="Password"
-                                    />
-                                    <input
-                                        name="passwordTwo"
-                                        value={passwordTwo}
-                                        onChange={this.onChange}
-                                        type="password"
-                                        placeholder="Confirm Password"
-                                    />
-                                    <button onClick={this.onClick}>Sign Up</button>
+                                    <div class="field">
+                                        <div class="control">
+                                            <input
+                                                name="username" 
+                                                class="input is-large" 
+                                                value={username}
+                                                onChange={this.onChange}
+                                                type="text" 
+                                                placeholder="Username" 
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="control">
+                                            <input
+                                                name="email"
+                                                class="input is-large" 
+                                                type="text"
+                                                value={email} 
+                                                onChange={this.onChange} 
+                                                placeholder="Your Email" 
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="control">
+                                            <input 
+                                                class="input is-large" 
+                                                value={passwordOne}
+                                                onChange={this.onChange}
+                                                name="passwordOne" 
+                                                type="password" 
+                                                placeholder="Password" 
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="control">
+                                            <input 
+                                                name="passwordTwo"
+                                                class="input is-large" 
+                                                value={passwordTwo}
+                                                onChange={this.onChange}
+                                                type="password" 
+                                                placeholder="Confirm Password" 
+                                            />
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="button is-block is-info is-large is-fullwidth">Login</button>
                                     {error && <p>{error.message}</p>}
                                 </form>
                             </div>
-                            <p>
-                                Already have an account?
-                                <Link to="/SignIn">Log In</Link>
-                            </p>
                         </div>
                     </div>
-                </div>     
+                </div>
             </section>        
         )
     }      

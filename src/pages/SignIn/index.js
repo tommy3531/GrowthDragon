@@ -103,7 +103,6 @@ class SignIn extends Component {
                         </div>
                     </div>
                 </div>
-                <BottomNav />
             </section>
 
         );

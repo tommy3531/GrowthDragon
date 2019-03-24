@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import TopNav from '../../common/TopNav';
-import firebase from '../../helper/Firebase';
+import fire from '../../helper/Firebase';
 import { toast } from 'bulma-toast';
 import { withRouter } from 'react-router-dom';
 
@@ -41,8 +41,8 @@ class EditProfile extends Component {
     onSubmit = event => {
 
         event.preventDefault();
-        const uid = firebase.auth().currentUser.uid;
-        const user = firebase.database().ref(`users/${uid}`);
+        const uid = fire.auth().currentUser.uid;
+        const user = fire.database().ref(`users/${uid}`);
 
         const userprofile = {
             email: this.props.userData.email,
