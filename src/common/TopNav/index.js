@@ -5,10 +5,11 @@ import { faDragon } from '@fortawesome/free-solid-svg-icons';
 import LogOut from "../../common/LogOut";
 
 const toggleBurger = () => {
-  let burgerIcon = document.getElementById('.burger');
+  let burgerIcon = document.getElementById('.navbar');
   let dropMenu = document.getElementById('.navbarMenuHeroB');
-  burgerIcon.classList.toggle('is-active');
-  dropMenu.classList.toggle('is-active');
+  // burgerIcon.toggleClass('is-active');
+  // dropMenu.classList.toggle('is-active');
+  console.log("ToggleBurger: CLICKED");
 };
 
 const TopNav = ({mainIsLoggedIn}) => {
@@ -22,7 +23,7 @@ const TopNav = ({mainIsLoggedIn}) => {
                   <div class="navbar-item">
                     <NavLink to="/"><FontAwesomeIcon icon={faDragon} />Growth Dragon</NavLink>
                   </div>
-                  <div class="navbar-burger burger" id="navbarMenuHeroB" onclick="toggleBurger()">
+                  <div class="navbar-burger burger" id="navbarMenuHeroB" onclick={toggleBurger()}>
                     <span></span>
                     <span></span>
                     <span></span>

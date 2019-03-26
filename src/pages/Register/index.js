@@ -16,24 +16,28 @@ class Register extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { ...INITIAL_STATE, success: false};
+        this.state = { ...INITIAL_STATE};
         this.onSubmit = this.onSubmit.bind(this);
     }
 
     // TODO: Clean this up
     onSubmit = event => {
-        const { email, passwordOne, username } = this.state;
+        const { passwordOne, username, fullname, email, phone, birthday } = this.state;
 
         event.preventDefault();
 
         const userprofile = {
-            username: username
+            username: username,
+            fullname: fullname,
+            email: email,
+            phone: phone,
+            birthday: birthday
         }
 
         fire.auth().createUserWithEmailAndPassword(email, passwordOne)
             .then(() => {
                 const uid = fire.auth().currentUser.uid;
-                const userDB = fire.database().ref(`users/${uid}`);
+                const userDB = fire.database().ref('users/' + uid + '/basicInformation');
                 this.setState({ success: true });
                 console.log("Register username: " + username);
                 userDB.update(userprofile);
@@ -53,7 +57,10 @@ class Register extends Component {
 
         const {
             username,
+            fullname,
             email,
+            phone,
+            birthday,
             passwordOne,
             passwordTwo,
             error,
@@ -84,12 +91,48 @@ class Register extends Component {
                                     <div class="field">
                                         <div class="control">
                                             <input
+                                                name="fullname" 
+                                                class="input is-large" 
+                                                value={fullname}
+                                                onChange={this.onChange}
+                                                type="text" 
+                                                placeholder="fullname" 
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="control">
+                                            <input
                                                 name="email"
                                                 class="input is-large" 
                                                 type="text"
                                                 value={email} 
                                                 onChange={this.onChange} 
                                                 placeholder="Your Email" 
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="control">
+                                            <input
+                                                name="phone" 
+                                                class="input is-large" 
+                                                value={phone}
+                                                onChange={this.onChange}
+                                                type="text" 
+                                                placeholder="phone" 
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="control">
+                                            <input
+                                                name="birthday" 
+                                                class="input is-large" 
+                                                value={birthday}
+                                                onChange={this.onChange}
+                                                type="text" 
+                                                placeholder="birthday" 
                                             />
                                         </div>
                                     </div>

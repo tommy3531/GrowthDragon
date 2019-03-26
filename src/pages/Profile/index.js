@@ -1,16 +1,28 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { toast } from 'bulma-toast';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import fire from '../../helper/Firebase';
 
 class Profile extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            username: ''
+            username: '',
+            email: '',
+            phone: '',
+            curAddress: '',
+            city: '',
+            state: '',
+            zipcode: '',
+            birthday: '',
+            imdb: '',
+            facebook: '',
+            twitter: '',
+            foursquare: ''
+
+
         };
+        this.onSubmit = this.onSubmit.bind(this);
     }    
     componentWillMount() {
         if(this.props.mainIsLoggedIn){
@@ -28,40 +40,202 @@ class Profile extends React.Component {
         }
     }
 
-        // TODO: need to clean up code 
+    // TODO: need to clean up code 
     componentDidMount() {
         const uid = fire.auth().currentUser.uid;
-        const user = fire.database().ref('users/' + uid );
-        user.on('value', function(snapshot){
+        const user = fire.database().ref('users/' + uid);
+        const address = fire.database().ref('users/' + uid + '/address');
+        const social = fire.database().ref('users/' + uid + '/social');
+        const basicInformation = fire.database().ref('users/' + uid + "/basicInformation");
+        basicInformation.on('value', function(snapshot){
             const username = snapshot.val().username;
-            this.setState({ username: username});
-            console.log("Username: " + username);
-        }.bind(this));
+            const email = snapshot.val().email;
+            const phone = snapshot.val().phone;
+            const birthday = snapshot.val().birthday;
+            this.setState({
+                username: username,
+                email: email,
+                phone: phone,
+                birthday: birthday
 
+            });
+            console.log("Basic Information: " + username);
+
+        }.bind(this));
+            
+        if(address) {
+            address.on('value', function(snapshot){
+                const curAddressBoolean = snapshot.child("users/" + uid + "/address/curAddress").exists();
+                console.log("Current Address: " + curAddressBoolean);
+                if(curAddressBoolean){
+                    const curAddress = snapshot.val().curAddress;
+                    this.setState({
+                        curAddress: curAddress
+                    });
+                }
+                const cityBoolean = snapshot.child("/address/city").exists();
+                if(cityBoolean){
+                    const city = snapshot.val().city;
+                    this.setState({
+                        city: city
+                    });
+                }
+                const stateBoolean = snapshot.child("users/address/state").exists();
+                console.log("StateBoolean: " + stateBoolean);
+                if(stateBoolean){
+                    const state = snapshot.val().state;
+                    this.setState({
+                        state: state
+    
+                    });
+                }
+                const zipcodeBoolean = snapshot.child("/address/zipcode").exists();
+                if(zipcodeBoolean){
+                    const zipcode = snapshot.val().zipcode;
+                    this.setState({
+                        zipcode: zipcode
+    
+                    });
+                }
+
+            }.bind(this));
+
+        } 
+        if(social) {
+            social.on('value', function(snapshot){
+
+                const imdbBoolean = snapshot.child("social/imdb").exists();
+                if(imdbBoolean){
+                    const imdb = snapshot.val().social.imdb;
+                    console.log("Imdb Exsist: " + imdb);
+                    this.setState(
+                        { 
+                            imdb: imdb
+    
+                        });
+
+                }
+                const facebookBoolean = snapshot.child("social/facebook").exists();
+                if(facebookBoolean){
+                    const facebook = snapshot.val().social.facebook;
+                    console.log("Facebook: " + facebook);
+                    this.setState(
+                        { 
+                            facebook: facebook    
+                        });
+                }
+                const twitterBoolean = snapshot.child("social/twitter").exists;
+                if(!twitterBoolean){
+                    const twitter = snapshot.val().social.twitter;
+                    console.log("Twitter: " + twitter);
+                    this.setState(
+                        { 
+                            twitter: twitter
+                        });
+                }
+                const foursquareBoolean = snapshot.child("social/foursquare").exists;
+                if(!foursquareBoolean){
+                    const foursquare = snapshot.val().social.foursquare;
+                    this.setState(
+                        { 
+                            foursquare: foursquare
+
+
+                        });
+                    }
+            }.bind(this));
+        }
     }
+
+    onSubmit = event => {
+
+        const uid = fire.auth().currentUser.uid;
+        const user = fire.database().ref("users/" + uid + "/basicInformation");
+        const social = fire.database().ref("users/" + uid + "/social");
+        const address = fire.database().ref("users/" + uid + "/address");
+
+        const userprofile = {
+            username: this.state.username,
+            email: this.state.email,
+            phone: this.state.phone,
+            birthday: this.state.birthday
+        }
+        const userAddress = {
+            curAddress: this.state.curAddress,
+            city: this.state.city,
+            state: this.state.state,
+            zipcode: this.state.zipcode
+
+        }
+        const userSocial = {
+            imdb: this.state.imdb,
+            facebook: this.state.facebook,
+            twitter: this.state.twitter,
+            foursquare: this.state.foursquare
+
+        }
+
+        console.log("Address Profile: " + userAddress);
+        address.update(userAddress);
+
+        console.log("Social profile: " + userSocial);
+        social.update(userSocial);
+
+        console.log("Profile userprofile: " + userprofile);
+
+        user.update(userprofile);
+
+        this.setState({
+            username: '',
+            email: '',
+            phone: '',
+            birthday: '',
+            curAddress: '',
+            city: '',
+            state: '',
+            zipcode: '',
+            imdb: '',
+            faceboook: '',
+            twitter: '',
+            foursquare: ''
+        });
+    };
+
+    onChange = event => {
+        this.setState({[event.target.name] : event.target.value });
+    };
+
     render() {
+        const { username, email, phone, birthday, imdb, facebook, twitter, foursquare, curAddress, city, state, zipcode } = this.state;
         return (
             <section class="hero is-info is-fullheight">
                 <div class="container">
                     <div class="tile is-ancestor">
                         <div class="tile is-4 is-parent">
                             <article class="tile is-child box">
-                                <p class="boxtitle">Hello, {this.state.username}</p>
+                                <p class="boxtitle">Hello, {username}</p>
                                 <figure class="image is-4by3">
                                     <img src="https://bulma.io/images/placeholders/640x480.png"></img>
                                 </figure>
-                                <button>Submit</button>
+                                <button onClick={this.onSubmit} type="submit" class="button is-block is-info">Submit</button>
 
                             </article>
                         </div>
                         <div class="tile is-4 is-parent">
                             <div class="tile is-child box">
                                 <p class="boxtitle">Basic Information</p>
-                                <form>
+                                <form onSubmit={this.onSubmit}>
                                     <div class="field">
-                                        <label class="label">Name</label>
+                                        <label class="label">Username</label>
                                         <div class="control has-icons-left">
-                                            <input class="input" type="text" placeholder="FullName" />
+                                            <input 
+                                                name="username"
+                                                class="input"
+                                                type="text"
+                                                onChange={this.onChange}
+                                                value={username}
+                                                placeholder="username"
+                                            />
                                             <span class="icon is-small is-left">
                                                 <i class="fas fa-user"></i>
                                             </span>
@@ -70,7 +244,14 @@ class Profile extends React.Component {
                                     <div class="field">
                                         <label class="label">Email</label>
                                         <div class="control has-icons-left">
-                                            <input class="input" type="text" placeholder="Email" />
+                                            <input 
+                                                name="email"
+                                                class="input"
+                                                type="text" 
+                                                onChange={this.onChange}
+                                                value={email} 
+                                                placeholder="Email" 
+                                            />
                                             <span class="icon is-small is-left">
                                                 <i class="fas fa-envelope"></i>
                                             </span>
@@ -79,7 +260,14 @@ class Profile extends React.Component {
                                     <div class="field">
                                         <label class="label">Phone</label>
                                         <div class="control has-icons-left">
-                                            <input class="input" type="text" placeholder="Phone" />
+                                            <input
+                                                name="phone" 
+                                                class="input"
+                                                type="text" 
+                                                onChange={this.onChange}
+                                                value={phone}
+                                                placeholder="Phone" 
+                                            />
                                             <span class="icon is-small is-left">
                                                 <i class="fas fa-phone"></i>
                                             </span>
@@ -88,7 +276,14 @@ class Profile extends React.Component {
                                     <div class="field">
                                         <label class="label">Birthday</label>
                                         <div class="control has-icons-left">
-                                            <input class="input" type="text" placeholder="Birthday" />
+                                            <input 
+                                                name="birthday"
+                                                class="input" 
+                                                type="text" 
+                                                onChange={this.onChange}
+                                                value={birthday}
+                                                placeholder="Birthday"
+                                            />
                                             <span class="icon is-small is-left">
                                                 <i class="fas fa-calendar"></i>
                                             </span>
@@ -104,7 +299,14 @@ class Profile extends React.Component {
                                     <div class="field">
                                         <label class="label">Address</label>
                                         <div class="control has-icons-left">
-                                            <input class="input" type="text" placeholder="Address" />
+                                            <input 
+                                                name="curAddress"
+                                                class="input" 
+                                                type="text"
+                                                onChange={this.onChange}
+                                                value={curAddress} 
+                                                placeholder="Address" 
+                                            />
                                             <span class="icon is-small is-left">
                                                 <i class="fas fa-home"></i>
                                             </span>
@@ -113,7 +315,14 @@ class Profile extends React.Component {
                                     <div class="field">
                                         <label class="label">City</label>
                                         <div class="control has-icons-left">
-                                            <input class="input" type="text" placeholder="City" />
+                                            <input 
+                                                name="city"
+                                                class="input" 
+                                                type="text" 
+                                                onChange={this.onChange}
+                                                value={city}
+                                                placeholder="City" 
+                                            />
                                             <span class="icon is-small is-left">
                                                 <i class="fas fa-home"></i>
                                             </span>
@@ -122,7 +331,14 @@ class Profile extends React.Component {
                                     <div class="field">
                                         <label class="label">State</label>
                                         <div class="control has-icons-left">
-                                            <input class="input" type="text" placeholder="State" />
+                                            <input 
+                                                name="state"
+                                                class="input" 
+                                                type="text" 
+                                                onChange={this.onChange}
+                                                value={state}
+                                                placeholder="State" 
+                                            />
                                             <span class="icon is-small is-left">
                                                 <i class="fas fa-home"></i>
                                             </span>
@@ -131,7 +347,14 @@ class Profile extends React.Component {
                                     <div class="field">
                                         <label class="label">Zipcode</label>
                                         <div class="control has-icons-left">
-                                            <input class="input" type="text" placeholder="Zipcode" />
+                                            <input 
+                                                name="zipcode"
+                                                class="input" 
+                                                type="text" 
+                                                onChange={this.onChange}
+                                                value={zipcode}
+                                                placeholder="Zipcode" 
+                                            />
                                             <span class="icon is-small is-left">
                                                 <i class="fas fa-home"></i>
                                             </span>
@@ -149,7 +372,14 @@ class Profile extends React.Component {
                                     <div class="field">
                                         <label class="label">imdb</label>
                                         <div class="control has-icons-left">
-                                            <input class="input" type="text" placeholder="imdb" />
+                                            <input
+                                                name="imdb" 
+                                                class="input" 
+                                                type="text" 
+                                                onChange={this.onChange}
+                                                value={imdb}
+                                                placeholder="imdb" 
+                                            />
                                             <span class="icon is-small is-left">
                                                 <i class="fab fa-imdb"></i>
                                             </span>
@@ -158,7 +388,14 @@ class Profile extends React.Component {
                                     <div class="field">
                                         <label class="label">Facebook</label>
                                         <div class="control has-icons-left">
-                                            <input class="input" type="text" placeholder="Facebook" />
+                                            <input
+                                                name="facebook" 
+                                                class="input" 
+                                                type="text"
+                                                onChange={this.onChange}
+                                                value={facebook} 
+                                                placeholder="Facebook" 
+                                            />
                                             <span class="icon is-small is-left">
                                                 <i class="fab fa-facebook"></i>
                                             </span>
@@ -167,7 +404,14 @@ class Profile extends React.Component {
                                     <div class="field">
                                         <label class="label">Twitter</label>
                                         <div class="control has-icons-left">
-                                            <input class="input" type="text" placeholder="Twitter" />
+                                            <input 
+                                                name="twitter"
+                                                class="input" 
+                                                type="text"
+                                                onChange={this.onChange}
+                                                value={twitter} 
+                                                placeholder="Twitter" 
+                                            />
                                             <span class="icon is-small is-left">
                                                 <i class="fab fa-twitter"></i>
                                             </span>
@@ -176,7 +420,14 @@ class Profile extends React.Component {
                                     <div class="field">
                                         <label class="label">Foursquare</label>
                                         <div class="control has-icons-left">
-                                            <input class="input" type="text" placeholder="Foursquare" />
+                                            <input 
+                                                name="foursquare"
+                                                class="input" 
+                                                type="text"
+                                                onChange={this.onChange}
+                                                value={foursquare} 
+                                                placeholder="Foursquare" 
+                                            />
                                             <span class="icon is-small is-left">
                                                 <i class="fab fa-foursquare"></i>
                                             </span>
