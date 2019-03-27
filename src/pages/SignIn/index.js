@@ -91,7 +91,7 @@ class SignIn extends Component {
                                             Remember me
                                         </label>
                                     </div>
-                                    <button disabled={isInvalid} type="submit" class="button is-block is-info is-large is-fullwidth">Login</button>
+                                    <button type="submit" class="button is-block is-info is-large is-fullwidth">Login</button>
                                     {error && <p>{error.message}</p>}
                                 </form>
                             </div>

@@ -5,14 +5,15 @@ import { faDragon } from '@fortawesome/free-solid-svg-icons';
 import LogOut from "../../common/LogOut";
 
 const toggleBurger = () => {
-  let burgerIcon = document.getElementById('.navbar');
-  let dropMenu = document.getElementById('.navbarMenuHeroB');
-  // burgerIcon.toggleClass('is-active');
-  // dropMenu.classList.toggle('is-active');
-  console.log("ToggleBurger: CLICKED");
-};
+  let burger = document.querySelector('.burger');
+  let nav = document.querySelector('.navMenu'+burger.dataset.target);
+  burger.addEventListener('click', function() {
+    burger.classList.toggle('is-active');
+    nav.classList.toggle('is-active');
+  });
+}
 
-const TopNav = ({mainIsLoggedIn}) => {
+const TopNav = ({ mainIsLoggedIn }) => {
   console.log("TopNav: " + mainIsLoggedIn)
   
   return (
@@ -23,15 +24,15 @@ const TopNav = ({mainIsLoggedIn}) => {
                   <div class="navbar-item">
                     <NavLink to="/"><FontAwesomeIcon icon={faDragon} />Growth Dragon</NavLink>
                   </div>
-                  <div class="navbar-burger burger" id="navbarMenuHeroB" onclick={toggleBurger()}>
+                  <span class="navbar-burger" data-target="navMenu">
                     <span></span>
                     <span></span>
                     <span></span>
-                  </div>
+                  </span>
                 </div>
                 
                 { !mainIsLoggedIn ? (
-                  <div id="navbarMenuHeroB" class="navbar-menu">
+                  <div class="navbar-menu" id="navMenu">
                     <div class="navbar-end">
                         <div class="navbar-item">
                           <button class="button is-info">
@@ -51,7 +52,7 @@ const TopNav = ({mainIsLoggedIn}) => {
                       </div>
                     </div>
                   ) : (
-                    <div id="navbarMenuHeroB" class="navbar-menu">
+                    <div id="navMenu" class="navbar-menu">
                       <div class="navbar-end">
                         <div class="navbar-item">
                             <LogOut />

@@ -62,97 +62,11 @@ class Profile extends React.Component {
             console.log("Basic Information: " + username);
 
         }.bind(this));
-            
-        if(address) {
-            address.on('value', function(snapshot){
-                const curAddressBoolean = snapshot.child("users/" + uid + "/address/curAddress").exists();
-                console.log("Current Address: " + curAddressBoolean);
-                if(curAddressBoolean){
-                    const curAddress = snapshot.val().curAddress;
-                    this.setState({
-                        curAddress: curAddress
-                    });
-                }
-                const cityBoolean = snapshot.child("/address/city").exists();
-                if(cityBoolean){
-                    const city = snapshot.val().city;
-                    this.setState({
-                        city: city
-                    });
-                }
-                const stateBoolean = snapshot.child("users/address/state").exists();
-                console.log("StateBoolean: " + stateBoolean);
-                if(stateBoolean){
-                    const state = snapshot.val().state;
-                    this.setState({
-                        state: state
-    
-                    });
-                }
-                const zipcodeBoolean = snapshot.child("/address/zipcode").exists();
-                if(zipcodeBoolean){
-                    const zipcode = snapshot.val().zipcode;
-                    this.setState({
-                        zipcode: zipcode
-    
-                    });
-                }
-
-            }.bind(this));
-
-        } 
-        if(social) {
-            social.on('value', function(snapshot){
-
-                const imdbBoolean = snapshot.child("social/imdb").exists();
-                if(imdbBoolean){
-                    const imdb = snapshot.val().social.imdb;
-                    console.log("Imdb Exsist: " + imdb);
-                    this.setState(
-                        { 
-                            imdb: imdb
-    
-                        });
-
-                }
-                const facebookBoolean = snapshot.child("social/facebook").exists();
-                if(facebookBoolean){
-                    const facebook = snapshot.val().social.facebook;
-                    console.log("Facebook: " + facebook);
-                    this.setState(
-                        { 
-                            facebook: facebook    
-                        });
-                }
-                const twitterBoolean = snapshot.child("social/twitter").exists;
-                if(!twitterBoolean){
-                    const twitter = snapshot.val().social.twitter;
-                    console.log("Twitter: " + twitter);
-                    this.setState(
-                        { 
-                            twitter: twitter
-                        });
-                }
-                const foursquareBoolean = snapshot.child("social/foursquare").exists;
-                if(!foursquareBoolean){
-                    const foursquare = snapshot.val().social.foursquare;
-                    this.setState(
-                        { 
-                            foursquare: foursquare
-
-
-                        });
-                    }
-            }.bind(this));
-        }
     }
 
     onSubmit = event => {
 
         const uid = fire.auth().currentUser.uid;
-        const user = fire.database().ref("users/" + uid + "/basicInformation");
-        const social = fire.database().ref("users/" + uid + "/social");
-        const address = fire.database().ref("users/" + uid + "/address");
 
         const userprofile = {
             username: this.state.username,
@@ -160,44 +74,12 @@ class Profile extends React.Component {
             phone: this.state.phone,
             birthday: this.state.birthday
         }
-        const userAddress = {
-            curAddress: this.state.curAddress,
-            city: this.state.city,
-            state: this.state.state,
-            zipcode: this.state.zipcode
-
-        }
-        const userSocial = {
-            imdb: this.state.imdb,
-            facebook: this.state.facebook,
-            twitter: this.state.twitter,
-            foursquare: this.state.foursquare
-
-        }
-
-        console.log("Address Profile: " + userAddress);
-        address.update(userAddress);
-
-        console.log("Social profile: " + userSocial);
-        social.update(userSocial);
-
-        console.log("Profile userprofile: " + userprofile);
-
-        user.update(userprofile);
 
         this.setState({
             username: '',
             email: '',
             phone: '',
-            birthday: '',
-            curAddress: '',
-            city: '',
-            state: '',
-            zipcode: '',
-            imdb: '',
-            faceboook: '',
-            twitter: '',
-            foursquare: ''
+            birthday: ''
         });
     };
 
@@ -218,7 +100,6 @@ class Profile extends React.Component {
                                     <img src="https://bulma.io/images/placeholders/640x480.png"></img>
                                 </figure>
                                 <button onClick={this.onSubmit} type="submit" class="button is-block is-info">Submit</button>
-
                             </article>
                         </div>
                         <div class="tile is-4 is-parent">
@@ -532,7 +413,7 @@ class Profile extends React.Component {
                 </div>
             </section>
             );
-                                }
+        }
     };      
 
 
