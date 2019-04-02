@@ -5,11 +5,12 @@ import fire from "../../helper/Firebase";
 
 const INITIAL_STATE = {
     username: '',
+    fullname: '',
     email: '',
+    phone: '',
+    birthday: '',
     passwordOne: '',
-    passwordTwo: '',
-    error: null,
-    success: false
+    passwordTwo: ''
 }
 
 class Register extends Component {
@@ -22,31 +23,45 @@ class Register extends Component {
 
     // TODO: Clean this up
     onSubmit = event => {
-        const { passwordOne, username, fullname, email, phone, birthday } = this.state;
-
         event.preventDefault();
+        fetch("http://localhost:8080/user/register",{
+            method: 'POST',
+            mode: 'no-cors', 
+            body: JSON.stringify(this.state)
 
-        const userprofile = {
-            username: username,
-            fullname: fullname,
-            email: email,
-            phone: phone,
-            birthday: birthday
-        }
-
-        fire.auth().createUserWithEmailAndPassword(email, passwordOne)
-            .then(() => {
-                const uid = fire.auth().currentUser.uid;
-                const userDB = fire.database().ref('users/' + uid + '/basicInformation');
-                this.setState({ success: true });
-                console.log("Register username: " + username);
-                userDB.update(userprofile);
-                this.props.history.push({pathname: "/profile", state: this.state.success});
-            })
-            .catch(error => {
-                this.setState({ error });
-            });
+        })
+        .then(result => {
+            console.log(result)
+        })
+        .catch(err => {
+            console.log(err)
+        });
+        
     };
+
+
+
+        // const userprofile = {
+        //     username: username,
+        //     fullname: fullname,
+        //     email: email,
+        //     phone: phone,
+        //     birthday: birthday
+        // }
+
+        // fire.auth().createUserWithEmailAndPassword(email, passwordOne)
+        //     .then(() => {
+        //         const uid = fire.auth().currentUser.uid;
+        //         const userDB = fire.database().ref('users/' + uid + '/basicInformation');
+        //         this.setState({ success: true });
+        //         console.log("Register username: " + username);
+        //         userDB.update(userprofile);
+        //         this.props.history.push({pathname: "/profile", state: this.state.success});
+        //     })
+        //     .catch(error => {
+        //         this.setState({ error });
+        //     });
+    // };
 
     onChange = event => {
         this.setState({[event.target.name]: event.target.value });
@@ -63,8 +78,6 @@ class Register extends Component {
             birthday,
             passwordOne,
             passwordTwo,
-            error,
-            success,
         } =  this.state;
 
         return (
@@ -161,7 +174,6 @@ class Register extends Component {
                                         </div>
                                     </div>
                                     <button type="submit" class="button is-block is-info is-large is-fullwidth">Login</button>
-                                    {error && <p>{error.message}</p>}
                                 </form>
                             </div>
                         </div>
