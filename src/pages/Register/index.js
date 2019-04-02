@@ -26,12 +26,22 @@ class Register extends Component {
         event.preventDefault();
         fetch("http://localhost:8080/user/register",{
             method: 'POST',
-            mode: 'no-cors', 
+            // mode: 'no-cors', 
+            headers: {
+                // 'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(this.state)
 
         })
         .then(result => {
-            console.log(result)
+            result.json()
+            .then(data => {
+                console.log("Registartion: " + data)
+            })
+            .catch(err => {
+                console.log("Error: " + err)
+            })
         })
         .catch(err => {
             console.log(err)
