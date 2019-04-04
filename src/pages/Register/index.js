@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import fire from "../../helper/Firebase";
-
 
 const INITIAL_STATE = {
     username: '',
@@ -21,63 +19,40 @@ class Register extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    // TODO: Clean this up
     onSubmit = event => {
         event.preventDefault();
         fetch("http://localhost:8080/user/register",{
             method: 'POST',
-            // mode: 'no-cors', 
             headers: {
-                // 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(this.state)
-
         })
-        .then(result => {
-            result.json()
-            .then(data => {
-                console.log("Registartion: " + data)
-            })
-            .catch(err => {
-                console.log("Error: " + err)
-            })
+        .then(result => result.json())
+        .then(data => {
+            console.log("DATA: " + data.registerMessage);
+            const jsonError = JSON.stringify(data);
+            if(data.errors){
+                const json = JSON.stringify(data);
+                const jsonParse = JSON.parse(json);
+                jsonParse.errors.forEach(element => {
+                    console.log("Error Message: " + element.msg);
+                });
+            }
+            
+            if(data.registerMessage){
+                console.log("Registartion Good: " + JSON.stringify(data));
+            }
         })
         .catch(err => {
-            console.log(err)
-        });
-        
+            console.log("Error: " + JSON.stringify(err));
+        })
     };
-
-
-
-        // const userprofile = {
-        //     username: username,
-        //     fullname: fullname,
-        //     email: email,
-        //     phone: phone,
-        //     birthday: birthday
-        // }
-
-        // fire.auth().createUserWithEmailAndPassword(email, passwordOne)
-        //     .then(() => {
-        //         const uid = fire.auth().currentUser.uid;
-        //         const userDB = fire.database().ref('users/' + uid + '/basicInformation');
-        //         this.setState({ success: true });
-        //         console.log("Register username: " + username);
-        //         userDB.update(userprofile);
-        //         this.props.history.push({pathname: "/profile", state: this.state.success});
-        //     })
-        //     .catch(error => {
-        //         this.setState({ error });
-        //     });
-    // };
 
     onChange = event => {
         this.setState({[event.target.name]: event.target.value });
 
     };
-
     render() {
 
         const {

@@ -39,24 +39,22 @@ class Main extends Component {
   componentDidUnmount() {
     this.listener();
   }
-
+  
   render() {
     return (
-        <Router>
-            <section class="hero is-info is-fullheight">
-                <TopNav mainIsLoggedIn={this.state.user} />
-                    <Switch>
-                        <Route exact path="/" component={Landing} />
-                        <Route path="/signin" component={SignIn} />
-                        <Route path="/register" component={Register} />
-                        <Route path="/profile" render={() => <Profile mainIsLoggedIn={this.state.user} userData={this.state.userData}></Profile>} />
-                        <Route path="/member" render={() => <Member mainIsLoggedIn={this.state.user}></Member>} />
-                        <Route path="/editprofile" render={() => <EditProfile mainIsLoggedIn={this.state.user} userData={this.state.userData}></EditProfile>} />
-
-                    </Switch>
-            </section>
-
-        </Router>
+      <Router>
+          <section class="hero is-info is-fullheight">
+              <TopNav mainIsLoggedIn={this.state.user} />
+                  <Switch>
+                      <Route exact path="/" component={Landing} />
+                      <Route path="/signin" component={SignIn} />
+                      <Route path="/register" component={Register} />
+                      <Route path="/profile" render={() => <Profile mainIsLoggedIn={this.state.user} userData={this.state.userData}></Profile>} />
+                      <Route path="/member" render={() => <Member mainIsLoggedIn={this.state.user}></Member>} />
+                      <Route path="/editprofile" render={() => <EditProfile mainIsLoggedIn={this.state.user} userData={this.state.userData}></EditProfile>} />
+                  </Switch>
+          </section>
+      </Router>
     );
   }
 }
