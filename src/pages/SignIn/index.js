@@ -23,20 +23,34 @@ class SignIn extends Component {
     onSubmit = event => {
 
         event.preventDefault();
-        fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-        .then(() => {
-            this.setState({success: true});
-            toast({
-                message: "You have logged In",
-                type: "is-success",
-                dismissible: true,
-                animate: {in: "fadeIn", out: "fadeOut"},
-                preventDuplicates: true
-            })
-            this.props.history.replace("/");
-        }).catch((error) => {
-            console.log(error);
-        });
+        const user = {
+            password: this.state.password,
+            email: this.state.email
+
+        }
+        fetch("http://localhost:8080/user/postLogin",{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => response.json())
+        .then(data => {
+            const json = JSON.stringify(data);
+            const jsonParse = JSON.parse(json);
+            console.log(jsonParse.success);
+            if(jsonParse.success){
+                console.log("SUCCESSS");
+                this.props.history.replace("/");
+            } else {
+                console.log("NO SUCCESS");
+            }
+            
+        })
+        .catch(err => {
+            console.log("Error: " + JSON.stringify(err));
+        })
     };
 
     onChange = event => {
@@ -66,7 +80,7 @@ class SignIn extends Component {
                                                 name="email"
                                                 class="input is-large" 
                                                 type="text"
-                                                value={this.state.email} 
+                                                value={email} 
                                                 onChange={this.onChange} 
                                                 placeholder="Your Email" 
                                             />
@@ -77,7 +91,7 @@ class SignIn extends Component {
                                         <div class="control">
                                             <input 
                                                 class="input is-large" 
-                                                value={this.state.password}
+                                                value={password}
                                                 onChange={this.onChange}
                                                 name="password" 
                                                 type="password" 

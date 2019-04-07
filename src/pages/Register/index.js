@@ -21,28 +21,28 @@ class Register extends Component {
 
     onSubmit = event => {
         event.preventDefault();
-        fetch("http://localhost:8080/user/register",{
+        console.log("EAMIL: " + this.state.email);
+        console.log("PASSWORD: " + this.state.passwordOne);
+        const user = {
+            username: this.state.username,
+            password: this.state.passwordOne,
+            email: this.state.email
+
+        }
+        console.log("User: " + user.email);
+        fetch("http://localhost:8080/user/postRegister",{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(this.state)
+            body: JSON.stringify(user)
         })
-        .then(result => result.json())
+        .then(response => response.json())
         .then(data => {
-            console.log("DATA: " + data.registerMessage);
             const jsonError = JSON.stringify(data);
-            if(data.errors){
-                const json = JSON.stringify(data);
-                const jsonParse = JSON.parse(json);
-                jsonParse.errors.forEach(element => {
-                    console.log("Error Message: " + element.msg);
-                });
-            }
+            const jsonParse = JSON.parse(jsonError);
+            console.log("ServerResponse: " + jsonError);
             
-            if(data.registerMessage){
-                console.log("Registartion Good: " + JSON.stringify(data));
-            }
         })
         .catch(err => {
             console.log("Error: " + JSON.stringify(err));
