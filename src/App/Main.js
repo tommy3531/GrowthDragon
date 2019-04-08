@@ -27,17 +27,11 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    this.listener = fire.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.setState({ user: true, userData: user });
-      } else {
-        this.setState({ user: false })
-      }
-    })
+    console.log("DIDMOUNT: " + this.props.history);
+    
   }
 
   componentDidUnmount() {
-    this.listener();
   }
   
   render() {

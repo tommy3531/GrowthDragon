@@ -39,9 +39,9 @@ class SignIn extends Component {
         .then(data => {
             const json = JSON.stringify(data);
             const jsonParse = JSON.parse(json);
-            console.log(jsonParse.success);
+            console.log(jsonParse);
             if(jsonParse.success){
-                console.log("SUCCESSS");
+                console.log("SUCCESSS: " + jsonParse.token);
                 this.props.history.replace("/");
             } else {
                 console.log("NO SUCCESS");
