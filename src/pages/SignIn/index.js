@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { toast } from 'bulma-toast';
 import { withFormik } from 'formik';
 import Yup from 'yup';
+import AuthService from '../../helper/authService';
 
 class SignIn extends Component {
     constructor(props) {
@@ -18,39 +19,21 @@ class SignIn extends Component {
         };
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.Auth = new AuthService();
     }
 
     onSubmit = event => {
 
         event.preventDefault();
-        const user = {
-            password: this.state.password,
-            email: this.state.email
 
-        }
-        fetch("http://localhost:8080/user/postLogin",{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-        .then(response => response.json())
-        .then(data => {
-            const json = JSON.stringify(data);
-            const jsonParse = JSON.parse(json);
-            console.log(jsonParse);
-            if(jsonParse.success){
-                console.log("SUCCESSS: " + jsonParse.token);
-                this.props.history.replace("/");
-            } else {
-                console.log("NO SUCCESS");
-            }
-            
-        })
-        .catch(err => {
-            console.log("Error: " + JSON.stringify(err));
-        })
+        this.Auth.login(this.state.email, this.state.password)
+            .then(res => {
+                console.log("PROPS: " + this.props.history.replace("/member"));
+            })
+            .catch( err => {
+                alert(err);
+            })
+        
     };
 
     onChange = event => {
