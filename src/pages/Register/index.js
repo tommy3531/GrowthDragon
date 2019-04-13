@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import TopNav from "../../common/TopNav";
+import AuthService from '../../helper/authService';
 
 
 const INITIAL_STATE = {
@@ -20,17 +21,19 @@ class Register extends Component {
         super(props);
         this.state = { ...INITIAL_STATE};
         this.onSubmit = this.onSubmit.bind(this);
+        this.Auth = new AuthService();
     }
 
     componentWillMount() {
         // WTH rewrite x3
-        console.log("Member AUTH: " + this.Auth.getToken())
         if(this.Auth.loggedIn()){
-            console.log("Member You are logged in");
-        } else {
-            console.log("Member Need to be logged in")
-            this.props.history.replace('/');
+            console.log("Register You are logged in");
+            this.props.history.replace('/member');
             this.state.loggedIn = true;
+
+        } else {
+            console.log("Register Need to be logged in");
+
 
         }
     }

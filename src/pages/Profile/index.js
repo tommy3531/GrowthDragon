@@ -29,9 +29,10 @@ class Profile extends React.Component {
     }    
     componentWillMount() {
         // Yep rewrite x4, figure it out!!!!
-        console.log("AUTH: " + this.Auth.getToken())
         if(this.Auth.loggedIn()) {
             console.log("SignIN: You are logged in");
+            this.state.loggedIn = true;
+
         } else {
             console.log("SignIN: You are not logged in");
             this.props.history.replace("/");
