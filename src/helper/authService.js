@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 
 class AuthService {
     constructor(){
-        this.login = this.login.bind(this)
+        this.login = this.login.bind(this);
+        this.loggedIn = this.loggedIn.bind(this);
+        this.setToken = this.setToken.bind(this);
+        this.getToken = this.getToken.bind(this);
     }
 
     login(email, password) {
@@ -37,6 +40,16 @@ class AuthService {
         console.log("SUCCESSS: " + token);
         localStorage.setItem("JWT", token);
     }
+
+    getToken() {
+        return localStorage.getItem("JWT");
+    }
+
+    loggedIn() {
+        const token = this.getToken()
+        return token
+    }
+
 }
 
 export default AuthService;

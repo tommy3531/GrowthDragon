@@ -6,6 +6,8 @@ import { toast } from 'bulma-toast';
 import { withFormik } from 'formik';
 import Yup from 'yup';
 import AuthService from '../../helper/authService';
+import TopNav from "../../common/TopNav";
+
 
 class SignIn extends Component {
     constructor(props) {
@@ -14,12 +16,22 @@ class SignIn extends Component {
         this.state = { 
             email: '', 
             password: '' ,
-            success: false
+            loggedIn: false
             
         };
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.Auth = new AuthService();
+    }
+    componentDidMount() {
+        console.log("AUTH: " + this.Auth.getToken())
+        if(this.Auth.loggedIn()){
+            this.props.history.replace('/member');
+            console.log("SignIN: You are logged in");
+        } else {
+            console.log("SignIN: You are not logged in");
+
+        }
     }
 
     onSubmit = event => {
@@ -28,7 +40,8 @@ class SignIn extends Component {
 
         this.Auth.login(this.state.email, this.state.password)
             .then(res => {
-                console.log("PROPS: " + this.props.history.replace("/member"));
+                this.props.history.replace("/member");
+                this.state.loggedIn = true;
             })
             .catch( err => {
                 alert(err);
@@ -45,6 +58,8 @@ class SignIn extends Component {
         const isInvalid = password === '' || email === '';
 
         return(
+            <div>
+            <TopNav mainIsLoggedIn={this.state.loggedIn} />
 
             <section class="hero is-info is-fullheight">
                 <div class="hero-body">
@@ -103,7 +118,7 @@ class SignIn extends Component {
                     </div>
                 </div>
             </section>
-
+        </div>
         );
     }
 }

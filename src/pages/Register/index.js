@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import TopNav from "../../common/TopNav";
+
 
 const INITIAL_STATE = {
     username: '',
@@ -8,7 +10,8 @@ const INITIAL_STATE = {
     phone: '',
     birthday: '',
     passwordOne: '',
-    passwordTwo: ''
+    passwordTwo: '',
+    loggedIn: false
 }
 
 class Register extends Component {
@@ -17,6 +20,18 @@ class Register extends Component {
         super(props);
         this.state = { ...INITIAL_STATE};
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    componentWillMount() {
+        console.log("Member AUTH: " + this.Auth.getToken())
+        if(this.Auth.loggedIn()){
+            console.log("Member You are logged in");
+        } else {
+            console.log("Member Need to be logged in")
+            this.props.history.replace('/');
+            this.state.loggedIn = true;
+
+        }
     }
 
     onSubmit = event => {
@@ -53,6 +68,7 @@ class Register extends Component {
         this.setState({[event.target.name]: event.target.value });
 
     };
+
     render() {
 
         const {
@@ -66,6 +82,8 @@ class Register extends Component {
         } =  this.state;
 
         return (
+            <div>
+            <TopNav mainIsLoggedIn={this.state.loggedIn} />
             <section class="hero is-info is-fullheight">
                 <div class="hero-body">
                     <div class="container has-text-centered">
@@ -164,9 +182,10 @@ class Register extends Component {
                         </div>
                     </div>
                 </div>
-            </section>        
+            </section> 
+            </div>       
         )
     }      
 }
 
-export default withRouter(Register);
+export default Register;

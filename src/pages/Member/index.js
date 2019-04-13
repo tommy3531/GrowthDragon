@@ -2,48 +2,43 @@ import React, {Component} from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import { toast } from 'bulma-toast';
 import fire from '../../helper/Firebase';
+import AuthService from '../../helper/authService';
+import TopNav from "../../common/TopNav";
+
 
 class Member extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            loggedIn: false,
             username: ''
         };
+        this.Auth = new AuthService();
+
     }
 
     componentWillMount() {
-        // if(this.props.mainIsLoggedIn){
-        //     console.log("Members is true");
-        // } else {
-        //     console.log("Member is not logged in redirect to");
-        //     toast({
-        //         message: "You must be logged In",
-        //         type: "is-danger",
-        //         dismissible: true,
-        //         animate: {in: "fadeIn", out: "fadeOut"}
-        //     })
-        //     this.props.history.replace('/');
-        // }
-    }
+        console.log("Member AUTH: " + this.Auth.getToken())
+        if(this.Auth.loggedIn()){
+            console.log("Member You are logged in");
+            this.state.loggedIn = true;
 
-    // TODO: need to clean up code 
-    componentDidMount() {
-        // const uid = fire.auth().currentUser.uid;
-        // const user = fire.database().ref('users/' + uid );
-        // user.on('value', function(snapshot){
-        //     const username = snapshot.val().username;
-        //     this.setState({ username: username});
-        //     console.log("Username: " + username);
-        // }.bind(this));
+        } else {
+            console.log("Member Need to be logged in")
+            this.props.history.replace('/');
+
+        }
     }
 
     render() {
         return (
+
             <div>
-                <h1>Logged In</h1>
+                <TopNav mainIsLoggedIn={this.state.loggedIn} />
+                <h1>Member Area</h1>
             </div>   
         );
     }      
 }
 
-export default withRouter(Member);
+export default Member;

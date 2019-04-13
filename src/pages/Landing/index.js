@@ -1,12 +1,20 @@
 import React, {Component} from 'react';
+import TopNav from "../../common/TopNav";
+
 
 class Landing extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            loggedIn: false,
+            username: ''
+        };
     }
     
     render() {
         return (
+            <div>
+            <TopNav mainIsLoggedIn={this.state.loggedIn} />
             <section class="hero is-info is-fullheight">
 
                 <div class="hero-body">
@@ -23,6 +31,7 @@ class Landing extends Component {
                 <div class="hero-foot">
                 </div>
             </section>
+            </div>
         )
     }      
 }

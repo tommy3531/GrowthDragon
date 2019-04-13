@@ -4,7 +4,8 @@ import {
     Route,
     Switch
 } from "react-router-dom";
-import fire from "../helper/Firebase";
+import { withRouter } from 'react-router-dom';
+import AuthService from '../helper/authService';
 
 // Pages
 import Member from "../pages/Member";
@@ -21,30 +22,41 @@ class Main extends Component {
     super(props);
 
     this.state = {
-      user: false,
+      loggedIn: false,
       userData: {}
     };
+    this.Auth = new AuthService();
+
   }
 
-  componentDidMount() {
-    console.log("DIDMOUNT: " + this.props.history);
-    
+  componentWillMount() {
+    console.log("AUTH: " + this.Auth.getToken());
+    if(this.Auth.loggedIn()){
+      this.state.loggedIn = true;
+      console.log("MAIN: You are logged in");
+      // this.props.history.replace("/member");
+    } else {
+        console.log("MAIN: Need to be logged in");
+        this.state.loggedIn = false
+        // this.props.history.replace("/login");
+    }
   }
 
   componentDidUnmount() {
   }
   
   render() {
+        const { loggedIn } = this.state.loggedIn;
+
     return (
       <Router>
           <section class="hero is-info is-fullheight">
-              <TopNav mainIsLoggedIn={this.state.user} />
                   <Switch>
                       <Route exact path="/" component={Landing} />
                       <Route path="/signin" component={SignIn} />
                       <Route path="/register" component={Register} />
                       <Route path="/profile" render={() => <Profile mainIsLoggedIn={this.state.user} userData={this.state.userData}></Profile>} />
-                      <Route path="/member" render={() => <Member mainIsLoggedIn={this.state.user}></Member>} />
+                      <Route path="/member" component={Member} />
                       <Route path="/editprofile" render={() => <EditProfile mainIsLoggedIn={this.state.user} userData={this.state.userData}></EditProfile>} />
                   </Switch>
           </section>
