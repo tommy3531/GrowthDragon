@@ -2,7 +2,13 @@ import React from "react";
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDragon } from '@fortawesome/free-solid-svg-icons';
-import LogOut from "../../common/LogOut";
+import AuthService from '../../helper/authService';
+
+
+function logOutUser() {
+  const Auth = new AuthService();
+  Auth.logout();
+}
 
 const toggleBurger = () => {
   let burger = document.querySelector('.burger');
@@ -12,6 +18,8 @@ const toggleBurger = () => {
     nav.classList.toggle('is-active');
   });
 }
+
+
 
 const TopNav = ({ mainIsLoggedIn }) => {
   console.log("TopNav: " + mainIsLoggedIn)
@@ -55,11 +63,13 @@ const TopNav = ({ mainIsLoggedIn }) => {
                     <div id="navMenu" class="navbar-menu">
                       <div class="navbar-end">
                         <div class="navbar-item">
-                            <LogOut />
+                          <button class="button is-info">
+                            <NavLink exact={true} to="/" activeClassName="is-active" activeStyle={{ color: '#041d2f' }}>Home</NavLink>
+                          </button>
                         </div>
                         <div class="navbar-item">
                           <button class="button is-info">
-                            <NavLink exact={true} to="/" activeClassName="is-active" activeStyle={{ color: '#041d2f' }}>Home</NavLink>
+                            <NavLink to="/" onClick={logOutUser}>Logout</NavLink>
                           </button>
                         </div>
                         <div class="navbar-item">

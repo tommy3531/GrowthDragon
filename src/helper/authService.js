@@ -4,6 +4,7 @@ class AuthService {
     constructor(){
         this.login = this.login.bind(this);
         this.loggedIn = this.loggedIn.bind(this);
+        this.logout = this.logout.bind(this);
         this.setToken = this.setToken.bind(this);
         this.getToken = this.getToken.bind(this);
     }
@@ -39,6 +40,9 @@ class AuthService {
     setToken(token){
         console.log("SUCCESSS: " + token);
         localStorage.setItem("JWT", token);
+    }
+    logout(){
+        localStorage.removeItem("JWT");
     }
 
     getToken() {

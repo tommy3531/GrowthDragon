@@ -24,6 +24,7 @@ class SignIn extends Component {
         this.Auth = new AuthService();
     }
     componentDidMount() {
+        // This is shit find a new way
         console.log("AUTH: " + this.Auth.getToken())
         if(this.Auth.loggedIn()){
             this.props.history.replace('/member');

@@ -18,6 +18,7 @@ class Member extends Component {
     }
 
     componentWillMount() {
+        // WTH rewrite x2
         console.log("Member AUTH: " + this.Auth.getToken())
         if(this.Auth.loggedIn()){
             console.log("Member You are logged in");

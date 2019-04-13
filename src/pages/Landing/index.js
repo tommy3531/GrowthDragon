@@ -14,23 +14,23 @@ class Landing extends Component {
     render() {
         return (
             <div>
-            <TopNav mainIsLoggedIn={this.state.loggedIn} />
-            <section class="hero is-info is-fullheight">
+                <TopNav mainIsLoggedIn={this.state.loggedIn} />
+                    <section class="hero is-info is-fullheight">
 
-                <div class="hero-body">
-                    <div class="container has-text-centered">
-                    <p class="title">
-                        Growth Dragon
-                    </p>
-                    <p class="subtitle">
-                        Something!!!!!!
-                    </p>
-                    </div>
-                </div>
+                        <div class="hero-body">
+                            <div class="container has-text-centered">
+                            <p class="title">
+                                Growth Dragon
+                            </p>
+                            <p class="subtitle">
+                                Something!!!!!!
+                            </p>
+                            </div>
+                        </div>
 
-                <div class="hero-foot">
-                </div>
-            </section>
+                        <div class="hero-foot">
+                        </div>
+                    </section>
             </div>
         )
     }      

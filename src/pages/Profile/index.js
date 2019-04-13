@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { toast } from 'bulma-toast';
-import fire from '../../helper/Firebase';
+import AuthService from '../../helper/authService';
+import TopNav from "../../common/TopNav";
 
 class Profile extends React.Component {
     constructor(props){
@@ -18,69 +18,28 @@ class Profile extends React.Component {
             imdb: '',
             facebook: '',
             twitter: '',
-            foursquare: ''
+            foursquare: '',
+            loggedIn: false
 
 
         };
         this.onSubmit = this.onSubmit.bind(this);
+        this.Auth = new AuthService();
+
     }    
     componentWillMount() {
-        if(this.props.mainIsLoggedIn){
-            console.log("Members is true");
+        // Yep rewrite x4, figure it out!!!!
+        console.log("AUTH: " + this.Auth.getToken())
+        if(this.Auth.loggedIn()) {
+            console.log("SignIN: You are logged in");
         } else {
-            console.log("Member is not logged in redirect to");
-            console.log("Props: " + this.props.history)
-            toast({
-                message: "You must be logged In",
-                type: "is-danger",
-                dismissible: true,
-                animate: {in: "fadeIn", out: "fadeOut"}
-            })
+            console.log("SignIN: You are not logged in");
             this.props.history.replace("/");
         }
     }
 
-    // TODO: need to clean up code 
-    componentDidMount() {
-        const uid = fire.auth().currentUser.uid;
-        const user = fire.database().ref('users/' + uid);
-        const address = fire.database().ref('users/' + uid + '/address');
-        const social = fire.database().ref('users/' + uid + '/social');
-        const basicInformation = fire.database().ref('users/' + uid + "/basicInformation");
-        basicInformation.on('value', function(snapshot){
-            const username = snapshot.val().username;
-            const email = snapshot.val().email;
-            const phone = snapshot.val().phone;
-            const birthday = snapshot.val().birthday;
-            this.setState({
-                username: username,
-                email: email,
-                phone: phone,
-                birthday: birthday
-
-            });
-            console.log("Basic Information: " + username);
-
-        }.bind(this));
-    }
-
     onSubmit = event => {
 
-        const uid = fire.auth().currentUser.uid;
-
-        const userprofile = {
-            username: this.state.username,
-            email: this.state.email,
-            phone: this.state.phone,
-            birthday: this.state.birthday
-        }
-
-        this.setState({
-            username: '',
-            email: '',
-            phone: '',
-            birthday: ''
-        });
     };
 
     onChange = event => {
@@ -90,6 +49,9 @@ class Profile extends React.Component {
     render() {
         const { username, email, phone, birthday, imdb, facebook, twitter, foursquare, curAddress, city, state, zipcode } = this.state;
         return (
+            <div>
+                <TopNav mainIsLoggedIn={this.state.loggedIn} />
+
             <section class="hero is-info is-fullheight">
                 <div class="container">
                     <div class="tile is-ancestor">
@@ -412,6 +374,7 @@ class Profile extends React.Component {
                     </div>
                 </div>
             </section>
+            </div>
             );
         }
     };      

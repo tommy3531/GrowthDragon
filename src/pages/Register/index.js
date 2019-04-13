@@ -23,6 +23,7 @@ class Register extends Component {
     }
 
     componentWillMount() {
+        // WTH rewrite x3
         console.log("Member AUTH: " + this.Auth.getToken())
         if(this.Auth.loggedIn()){
             console.log("Member You are logged in");
